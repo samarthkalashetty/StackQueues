@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 
 class StackUsingLinkedList<T>
@@ -32,6 +33,11 @@ class StackUsingLinkedList<T>
 
         return list.Last.Value;
     }
+
+    public bool IsEmpty()
+    {
+        return list.Count == 0;
+    }
 }
 
 class Program
@@ -45,10 +51,11 @@ class Program
         stack.Push(30);
         stack.Push(56);
 
-        // Peeking and popping values from the stack
-        Console.WriteLine("Top of the stack: " + stack.Peek()); // Should print 56
-        Console.WriteLine("Popped value: " + stack.Pop());     // Should print 56
-        Console.WriteLine("Popped value: " + stack.Pop());     // Should print 30
-        Console.WriteLine("Top of the stack: " + stack.Peek()); // Should print 70
+        // Popping and peeking until the stack is empty
+        while (!stack.IsEmpty())
+        {
+            Console.WriteLine("Top of the stack: " + stack.Peek());
+            Console.WriteLine("Popped value: " + stack.Pop());
+        }
     }
 }
