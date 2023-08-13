@@ -1,26 +1,25 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-class StackUsingLinkedList<T>
+class QueueUsingLinkedList<T>
 {
     private LinkedList<T> list = new LinkedList<T>();
 
-    public void Push(T value)
+    public void Enqueue(T value)
     {
-        // Push the value onto the top of the stack
+        // Enqueue the value at the end of the queue
         list.AddLast(value);
     }
 
-    public T Pop()
+    public T Dequeue()
     {
         if (list.Count == 0)
         {
-            throw new InvalidOperationException("Stack is empty");
+            throw new InvalidOperationException("Queue is empty");
         }
 
-        T value = list.Last.Value;
-        list.RemoveLast();
+        T value = list.First.Value;
+        list.RemoveFirst();
         return value;
     }
 
@@ -28,10 +27,10 @@ class StackUsingLinkedList<T>
     {
         if (list.Count == 0)
         {
-            throw new InvalidOperationException("Stack is empty");
+            throw new InvalidOperationException("Queue is empty");
         }
 
-        return list.Last.Value;
+        return list.First.Value;
     }
 
     public bool IsEmpty()
@@ -44,18 +43,25 @@ class Program
 {
     static void Main(string[] args)
     {
-        StackUsingLinkedList<int> stack = new StackUsingLinkedList<int>();
+        QueueUsingLinkedList<int> queue = new QueueUsingLinkedList<int>();
 
-        // Pushing values onto the stack
-        stack.Push(70);
-        stack.Push(30);
-        stack.Push(56);
+        Console.WriteLine("Enter the number of elements to enqueue:");
+        int numElements = int.Parse(Console.ReadLine());
 
-        // Popping and peeking until the stack is empty
-        while (!stack.IsEmpty())
+        for (int i = 0; i < numElements; i++)
         {
-            Console.WriteLine("Top of the stack: " + stack.Peek());
-            Console.WriteLine("Popped value: " + stack.Pop());
+            Console.Write($"Enter element {i + 1}: ");
+            int element = int.Parse(Console.ReadLine());
+            queue.Enqueue(element);
+        }
+
+        Console.WriteLine("\nDequeueing and peeking from the beginning:");
+
+        // Dequeue and peek from the beginning until the queue is empty
+        while (!queue.IsEmpty())
+        {
+            Console.WriteLine("Front of the queue: " + queue.Peek());
+            Console.WriteLine("Dequeued value: " + queue.Dequeue());
         }
     }
 }
